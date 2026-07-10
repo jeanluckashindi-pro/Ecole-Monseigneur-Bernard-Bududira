@@ -1,0 +1,950 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Institut Famille des Disciples du Christ — Tableau de bord</title>
+  <!-- Bootstrap 5.3.3 -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" />
+  <!-- Bootstrap Icons 1.11.3 -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
+  <style>
+    /* ── Variables ── */
+    :root {
+      --sidebar-bg: #0f172a;
+      --sidebar-w: 260px;
+      --blue: #0b6ee8;
+      --blue-light: rgba(11,110,232,0.18);
+      --green: #16a34a;
+      --body-bg: #f8fafc;
+    }
+
+    /* ── Reset / Base ── */
+    *, *::before, *::after { box-sizing: border-box; }
+    body { margin: 0; font-family: 'Segoe UI', system-ui, sans-serif; background: var(--body-bg); }
+
+    /* ── Sidebar ── */
+    .sidebar {
+      width: var(--sidebar-w);
+      position: fixed;
+      top: 0; left: 0;
+      height: 100vh;
+      background: var(--sidebar-bg);
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      z-index: 1040;
+      transition: transform .25s ease;
+    }
+    .sidebar-brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 20px 18px 16px;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+    }
+    .sidebar-brand .brand-icon {
+      width: 40px; height: 40px;
+      background: var(--blue);
+      border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.3rem; color: #fff; flex-shrink: 0;
+    }
+    .sidebar-brand .brand-text {
+      font-size: .95rem; font-weight: 700; color: #fff; line-height: 1.2;
+    }
+    .sidebar-brand .brand-sub {
+      font-size: .7rem; color: rgba(255,255,255,0.45); font-weight: 400;
+    }
+    .sidebar-nav { flex: 1; padding: 14px 10px; }
+    .sidebar-section-label {
+      font-size: .65rem; font-weight: 600; letter-spacing: .08em;
+      color: rgba(255,255,255,0.3); text-transform: uppercase;
+      padding: 8px 8px 4px;
+    }
+    .sidebar .nav-link {
+      display: flex; align-items: center; gap: 10px;
+      color: rgba(255,255,255,0.65);
+      padding: 10px 16px;
+      border-radius: 8px;
+      font-size: .88rem;
+      font-weight: 500;
+      transition: background .18s, color .18s;
+      text-decoration: none;
+      margin-bottom: 2px;
+    }
+    .sidebar .nav-link i { font-size: 1.05rem; flex-shrink: 0; }
+    .sidebar .nav-link:hover { background: var(--blue-light); color: #fff; }
+    .sidebar .nav-link.active { background: var(--blue-light); color: #fff; }
+    .sidebar .nav-link .badge-count {
+      margin-left: auto;
+      font-size: .68rem; font-weight: 600;
+      background: var(--blue); color: #fff;
+      padding: 2px 7px; border-radius: 20px;
+    }
+    .sidebar-footer {
+      padding: 14px 16px;
+      border-top: 1px solid rgba(255,255,255,0.08);
+      display: flex; align-items: center; gap: 10px;
+    }
+    .sidebar-footer .admin-avatar {
+      width: 36px; height: 36px; border-radius: 50%;
+      background: var(--blue); display: flex; align-items: center;
+      justify-content: center; color: #fff; font-weight: 700;
+      font-size: .9rem; flex-shrink: 0;
+    }
+    .sidebar-footer .admin-info { flex: 1; min-width: 0; }
+    .sidebar-footer .admin-name {
+      font-size: .82rem; font-weight: 600; color: #fff;
+      white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+    }
+    .sidebar-footer .admin-role {
+      font-size: .68rem; color: rgba(255,255,255,0.4);
+    }
+    .sidebar-footer .btn-logout {
+      background: none; border: none; color: rgba(255,255,255,0.4);
+      padding: 4px; border-radius: 6px; cursor: pointer;
+      transition: color .18s;
+    }
+    .sidebar-footer .btn-logout:hover { color: #ef4444; }
+
+    /* ── Main content ── */
+    .main-content {
+      margin-left: var(--sidebar-w);
+      min-height: 100vh;
+      background: var(--body-bg);
+      display: flex; flex-direction: column;
+    }
+
+    /* ── Topbar ── */
+    .topbar {
+      position: sticky; top: 0;
+      background: #fff;
+      border-bottom: 1px solid #e2e8f0;
+      z-index: 100;
+      padding: 0 24px;
+      height: 64px;
+      display: flex; align-items: center; gap: 16px;
+    }
+    .topbar .toggler-btn {
+      display: none;
+      background: none; border: none; font-size: 1.4rem; color: #374151;
+      cursor: pointer; padding: 4px;
+    }
+    .topbar .breadcrumb { margin: 0; }
+    .topbar .breadcrumb-item a { color: var(--blue); text-decoration: none; }
+    .topbar .breadcrumb-item.active { color: #374151; font-weight: 600; }
+    .topbar .search-wrap {
+      position: relative; margin-left: auto;
+    }
+    .topbar .search-wrap input {
+      padding-left: 36px; border-radius: 20px;
+      border: 1px solid #e2e8f0; background: #f8fafc;
+      font-size: .85rem; width: 220px;
+    }
+    .topbar .search-wrap input:focus {
+      outline: none; box-shadow: 0 0 0 3px rgba(11,110,232,.12);
+      border-color: var(--blue);
+    }
+    .topbar .search-wrap .search-icon {
+      position: absolute; left: 11px; top: 50%; transform: translateY(-50%);
+      color: #94a3b8; font-size: .9rem;
+    }
+    .topbar .top-actions { display: flex; align-items: center; gap: 12px; }
+    .topbar .notif-btn {
+      position: relative; background: none; border: none;
+      font-size: 1.2rem; color: #64748b; cursor: pointer;
+      padding: 6px; border-radius: 8px; transition: background .18s;
+    }
+    .topbar .notif-btn:hover { background: #f1f5f9; }
+    .topbar .notif-badge {
+      position: absolute; top: 2px; right: 2px;
+      width: 8px; height: 8px; border-radius: 50%;
+      background: #ef4444; border: 2px solid #fff;
+    }
+    .topbar .top-avatar {
+      width: 36px; height: 36px; border-radius: 50%;
+      background: var(--blue); color: #fff; font-weight: 700;
+      font-size: .85rem; display: flex; align-items: center; justify-content: center;
+      cursor: pointer;
+    }
+
+    /* ── Page body ── */
+    .page-body { padding: 28px 28px 40px; flex: 1; }
+    .page-title { font-size: 1.3rem; font-weight: 700; color: #0f172a; margin-bottom: 4px; }
+    .page-subtitle { font-size: .84rem; color: #64748b; margin-bottom: 28px; }
+
+    /* ── Stat cards ── */
+    .stat-card {
+      border-radius: 12px !important;
+      border: 0 !important;
+      box-shadow: 0 1px 3px rgba(0,0,0,.07), 0 4px 16px rgba(0,0,0,.05);
+      transition: transform .18s, box-shadow .18s;
+    }
+    .stat-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 20px rgba(0,0,0,.1);
+    }
+    .stat-icon {
+      width: 48px; height: 48px; border-radius: 12px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.35rem; flex-shrink: 0;
+    }
+    .stat-value { font-size: 1.65rem; font-weight: 700; color: #0f172a; line-height: 1; }
+    .stat-label { font-size: .8rem; color: #64748b; margin-top: 2px; }
+    .stat-trend { font-size: .78rem; font-weight: 600; }
+    .stat-trend.up { color: var(--green); }
+    .stat-trend.down { color: #ef4444; }
+
+    /* ── Section card ── */
+    .section-card {
+      background: #fff;
+      border-radius: 12px;
+      border: 1px solid #e2e8f0;
+      box-shadow: 0 1px 3px rgba(0,0,0,.05);
+    }
+    .section-card .card-header-custom {
+      padding: 18px 20px 0;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .section-title { font-size: .95rem; font-weight: 700; color: #0f172a; }
+    .section-subtitle { font-size: .78rem; color: #94a3b8; margin-top: 1px; }
+
+    /* ── Table ── */
+    .tbl-wrap { overflow-x: auto; }
+    .custom-table { font-size: .83rem; margin: 0; }
+    .custom-table thead th {
+      background: #f8fafc; color: #64748b; font-weight: 600;
+      font-size: .75rem; text-transform: uppercase; letter-spacing: .05em;
+      border-bottom: 2px solid #e2e8f0; padding: 10px 14px;
+    }
+    .custom-table tbody td { padding: 12px 14px; vertical-align: middle; color: #374151; }
+    .custom-table tbody tr:hover { background: #f8fafc; }
+    .student-name { font-weight: 600; color: #0f172a; }
+    .student-cycle { font-size: .75rem; color: #64748b; }
+
+    /* ── Badges ── */
+    .badge-pending  { background: #fef3c7; color: #92400e; }
+    .badge-accepted { background: #d1fae5; color: #065f46; }
+    .badge-review   { background: #dbeafe; color: #1e40af; }
+    .status-badge {
+      padding: 4px 10px; border-radius: 20px;
+      font-size: .73rem; font-weight: 600; display: inline-block;
+    }
+
+    /* ── Action buttons ── */
+    .btn-action {
+      width: 30px; height: 30px; border-radius: 7px;
+      border: 1px solid #e2e8f0; background: #fff;
+      display: inline-flex; align-items: center; justify-content: center;
+      font-size: .85rem; cursor: pointer; transition: all .15s;
+      text-decoration: none;
+    }
+    .btn-action.view  { color: var(--blue); }
+    .btn-action.edit  { color: #f59e0b; }
+    .btn-action.del   { color: #ef4444; }
+    .btn-action:hover { border-color: currentColor; background: currentColor; color: #fff !important; }
+
+    /* ── Progress bars ── */
+    .level-row { margin-bottom: 14px; }
+    .level-label { font-size: .82rem; font-weight: 600; color: #374151; margin-bottom: 4px; }
+    .level-count { font-size: .78rem; color: #64748b; }
+
+    /* ── Activity list ── */
+    .activity-item {
+      display: flex; gap: 12px; align-items: flex-start;
+      padding: 10px 0;
+      border-bottom: 1px solid #f1f5f9;
+    }
+    .activity-item:last-child { border-bottom: none; }
+    .activity-icon {
+      width: 34px; height: 34px; border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: .95rem; flex-shrink: 0;
+    }
+    .activity-text { font-size: .83rem; color: #374151; line-height: 1.4; }
+    .activity-time { font-size: .73rem; color: #94a3b8; margin-top: 2px; }
+
+    /* ── Teacher cards ── */
+    .teacher-card {
+      border-radius: 12px; border: 1px solid #e2e8f0;
+      padding: 20px 16px; text-align: center;
+      background: #fff;
+      box-shadow: 0 1px 3px rgba(0,0,0,.05);
+      transition: transform .18s, box-shadow .18s;
+    }
+    .teacher-card:hover { transform: translateY(-2px); box-shadow: 0 4px 16px rgba(0,0,0,.09); }
+    .teacher-avatar {
+      width: 62px; height: 62px; border-radius: 50%;
+      background: #cbd5e1; display: flex; align-items: center;
+      justify-content: center; margin: 0 auto 12px;
+      font-size: 1.6rem; color: #64748b;
+    }
+    .teacher-name { font-weight: 700; font-size: .9rem; color: #0f172a; }
+    .teacher-subject { font-size: .78rem; color: #64748b; margin-top: 2px; }
+
+    /* ── Overlay sidebar mobile ── */
+    .sidebar-overlay {
+      display: none; position: fixed; inset: 0;
+      background: rgba(0,0,0,.45); z-index: 1039;
+    }
+    .sidebar-overlay.show { display: block; }
+
+    /* ── Responsive ── */
+    @media (max-width: 991.98px) {
+      .sidebar { transform: translateX(-100%); }
+      .sidebar.open { transform: translateX(0); }
+      .main-content { margin-left: 0; }
+      .topbar .toggler-btn { display: block; }
+      .topbar .search-wrap input { width: 160px; }
+    }
+    @media (max-width: 575.98px) {
+      .page-body { padding: 16px 14px 32px; }
+      .topbar { padding: 0 14px; }
+      .topbar .search-wrap { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ═══════════════════════════════════════════
+     SIDEBAR OVERLAY (mobile)
+════════════════════════════════════════════ -->
+<div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+<!-- ═══════════════════════════════════════════
+     SIDEBAR
+════════════════════════════════════════════ -->
+<aside class="sidebar" id="sidebar">
+
+  <!-- Brand -->
+  <div class="sidebar-brand">
+    <div class="brand-icon"><i class="bi bi-mortarboard-fill"></i></div>
+    <div>
+      <div class="brand-text">Institut Famille des Disciples du Christ</div>
+      <div class="brand-sub">Administration</div>
+    </div>
+  </div>
+
+  <!-- Navigation -->
+  <nav class="sidebar-nav">
+    <div class="sidebar-section-label">Principal</div>
+
+    <a href="#" class="nav-link active">
+      <i class="bi bi-grid-1x2-fill"></i>
+      Tableau de bord
+    </a>
+    <a href="#" class="nav-link">
+      <i class="bi bi-person-plus-fill"></i>
+      Inscriptions
+      <span class="badge-count">12</span>
+    </a>
+    <a href="#" class="nav-link">
+      <i class="bi bi-people-fill"></i>
+      Élèves
+    </a>
+    <a href="#" class="nav-link">
+      <i class="bi bi-person-badge-fill"></i>
+      Enseignants
+    </a>
+    <a href="#" class="nav-link">
+      <i class="bi bi-journal-text"></i>
+      Sections
+    </a>
+
+    <div class="sidebar-section-label mt-2">Communication</div>
+
+    <a href="#" class="nav-link">
+      <i class="bi bi-chat-dots-fill"></i>
+      Messages
+      <span class="badge-count">18</span>
+    </a>
+
+    <div class="sidebar-section-label mt-2">Système</div>
+
+    <a href="#" class="nav-link">
+      <i class="bi bi-gear-fill"></i>
+      Paramètres
+    </a>
+  </nav>
+
+  <!-- Footer -->
+  <div class="sidebar-footer">
+    <div class="admin-avatar">AM</div>
+    <div class="admin-info">
+      <div class="admin-name">Aimé Mutabazi</div>
+      <div class="admin-role">Administrateur</div>
+    </div>
+    <button class="btn-logout" title="Déconnexion">
+      <i class="bi bi-box-arrow-right" style="font-size:1.1rem;"></i>
+    </button>
+  </div>
+
+</aside>
+<!-- /.sidebar -->
+
+<!-- ═══════════════════════════════════════════
+     MAIN CONTENT
+════════════════════════════════════════════ -->
+<div class="main-content">
+
+  <!-- ── TOPBAR ── -->
+  <header class="topbar">
+    <!-- Mobile toggler -->
+    <button class="toggler-btn" id="sidebarToggler" aria-label="Menu">
+      <i class="bi bi-list"></i>
+    </button>
+
+    <!-- Breadcrumb -->
+    <nav aria-label="breadcrumb">
+      <ol class="breadcrumb mb-0">
+        <li class="breadcrumb-item"><a href="#">Accueil</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Tableau de bord</li>
+      </ol>
+    </nav>
+
+    <!-- Search -->
+    <div class="search-wrap">
+      <i class="bi bi-search search-icon"></i>
+      <input type="search" class="form-control form-control-sm" placeholder="Rechercher…" />
+    </div>
+
+    <!-- Top actions -->
+    <div class="top-actions">
+      <button class="notif-btn" aria-label="Notifications">
+        <i class="bi bi-bell"></i>
+        <span class="notif-badge"></span>
+      </button>
+      <div class="top-avatar" title="Aimé Mutabazi">AM</div>
+    </div>
+  </header>
+  <!-- /.topbar -->
+
+  <!-- ── PAGE BODY ── -->
+  <div class="page-body">
+
+    <!-- Page heading -->
+    <div class="page-title">Tableau de bord</div>
+    <div class="page-subtitle">Bonjour, Aimé — voici un aperçu de l'activité de ce jour.</div>
+
+    <!-- ════════════════════════════════════
+         a) STAT CARDS
+    ════════════════════════════════════ -->
+    <div class="row g-4 mb-4">
+
+      <!-- Inscriptions -->
+      <div class="col-sm-6 col-xl-3">
+        <div class="card stat-card p-4">
+          <div class="d-flex align-items-center gap-3 mb-3">
+            <div class="stat-icon" style="background:#eff6ff;">
+              <i class="bi bi-clipboard2-check-fill" style="color:#0b6ee8;"></i>
+            </div>
+            <div>
+              <div class="stat-value">248</div>
+              <div class="stat-label">Inscriptions totales</div>
+            </div>
+          </div>
+          <div class="stat-trend up">
+            <i class="bi bi-arrow-up-short"></i> +12% ce mois
+          </div>
+        </div>
+      </div>
+
+      <!-- Élèves actifs -->
+      <div class="col-sm-6 col-xl-3">
+        <div class="card stat-card p-4">
+          <div class="d-flex align-items-center gap-3 mb-3">
+            <div class="stat-icon" style="background:#f0fdf4;">
+              <i class="bi bi-people-fill" style="color:#16a34a;"></i>
+            </div>
+            <div>
+              <div class="stat-value">312</div>
+              <div class="stat-label">Élèves actifs</div>
+            </div>
+          </div>
+          <div class="stat-trend up">
+            <i class="bi bi-arrow-up-short"></i> +8 cette semaine
+          </div>
+        </div>
+      </div>
+
+      <!-- Enseignants -->
+      <div class="col-sm-6 col-xl-3">
+        <div class="card stat-card p-4">
+          <div class="d-flex align-items-center gap-3 mb-3">
+            <div class="stat-icon" style="background:#fffbeb;">
+              <i class="bi bi-person-badge-fill" style="color:#d97706;"></i>
+            </div>
+            <div>
+              <div class="stat-value">24</div>
+              <div class="stat-label">Enseignants</div>
+            </div>
+          </div>
+          <div class="stat-trend" style="color:#d97706;">
+            <i class="bi bi-dash"></i> Stable ce mois
+          </div>
+        </div>
+      </div>
+
+      <!-- Messages -->
+      <div class="col-sm-6 col-xl-3">
+        <div class="card stat-card p-4">
+          <div class="d-flex align-items-center gap-3 mb-3">
+            <div class="stat-icon" style="background:#fff1f2;">
+              <i class="bi bi-envelope-fill" style="color:#ef4444;"></i>
+            </div>
+            <div>
+              <div class="stat-value">18</div>
+              <div class="stat-label">Messages non lus</div>
+            </div>
+          </div>
+          <div class="stat-trend down">
+            <i class="bi bi-arrow-up-short"></i> +5 aujourd'hui
+          </div>
+        </div>
+      </div>
+
+    </div>
+    <!-- /.row stat cards -->
+
+    <!-- ════════════════════════════════════
+         b) TABLEAU INSCRIPTIONS
+    ════════════════════════════════════ -->
+    <div class="section-card mb-4">
+      <div class="card-header-custom mb-3">
+        <div>
+          <div class="section-title">Demandes d'inscription récentes</div>
+          <div class="section-subtitle">6 demandes au cours des 7 derniers jours</div>
+        </div>
+        <a href="#" class="btn btn-sm" style="background:var(--blue);color:#fff;border-radius:8px;font-size:.8rem;">
+          <i class="bi bi-plus-lg me-1"></i>Nouvelle inscription
+        </a>
+      </div>
+
+      <div class="tbl-wrap">
+        <table class="table custom-table">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Élève</th>
+              <th>Cycle</th>
+              <th>Classe</th>
+              <th>Statut</th>
+              <th>Date</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="text-muted">001</td>
+              <td><div class="student-name">Amina Niyonkuru</div></td>
+              <td><span class="badge bg-light text-secondary border" style="font-weight:500;">ECOFO</span></td>
+              <td>3ème ECOFO</td>
+              <td><span class="status-badge badge-pending">En attente</span></td>
+              <td class="text-muted">18 juin 2026</td>
+              <td>
+                <div class="d-flex gap-1">
+                  <a href="#" class="btn-action view" title="Voir"><i class="bi bi-eye"></i></a>
+                  <a href="#" class="btn-action edit" title="Éditer"><i class="bi bi-pencil"></i></a>
+                  <a href="#" class="btn-action del" title="Rejeter"><i class="bi bi-x-lg"></i></a>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td class="text-muted">002</td>
+              <td><div class="student-name">Bertrand Hakizimana</div></td>
+              <td><span class="badge bg-light text-secondary border" style="font-weight:500;">Lycee Technique</span></td>
+              <td>1ère technique</td>
+              <td><span class="status-badge badge-accepted">Acceptée</span></td>
+              <td class="text-muted">17 juin 2026</td>
+              <td>
+                <div class="d-flex gap-1">
+                  <a href="#" class="btn-action view" title="Voir"><i class="bi bi-eye"></i></a>
+                  <a href="#" class="btn-action edit" title="Éditer"><i class="bi bi-pencil"></i></a>
+                  <a href="#" class="btn-action del" title="Rejeter"><i class="bi bi-x-lg"></i></a>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td class="text-muted">003</td>
+              <td><div class="student-name">Claire Ndayishimiye</div></td>
+              <td><span class="badge bg-light text-secondary border" style="font-weight:500;">ECOFO</span></td>
+              <td>6ème ECOFO</td>
+              <td><span class="status-badge badge-review">En révision</span></td>
+              <td class="text-muted">16 juin 2026</td>
+              <td>
+                <div class="d-flex gap-1">
+                  <a href="#" class="btn-action view" title="Voir"><i class="bi bi-eye"></i></a>
+                  <a href="#" class="btn-action edit" title="Éditer"><i class="bi bi-pencil"></i></a>
+                  <a href="#" class="btn-action del" title="Rejeter"><i class="bi bi-x-lg"></i></a>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td class="text-muted">004</td>
+              <td><div class="student-name">David Irakoze</div></td>
+              <td><span class="badge bg-light text-secondary border" style="font-weight:500;">Lycee Technique</span></td>
+              <td>4ème technique</td>
+              <td><span class="status-badge badge-pending">En attente</span></td>
+              <td class="text-muted">15 juin 2026</td>
+              <td>
+                <div class="d-flex gap-1">
+                  <a href="#" class="btn-action view" title="Voir"><i class="bi bi-eye"></i></a>
+                  <a href="#" class="btn-action edit" title="Éditer"><i class="bi bi-pencil"></i></a>
+                  <a href="#" class="btn-action del" title="Rejeter"><i class="bi bi-x-lg"></i></a>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td class="text-muted">005</td>
+              <td><div class="student-name">Espérance Ntakarutimana</div></td>
+              <td><span class="badge bg-light text-secondary border" style="font-weight:500;">ECOFO</span></td>
+              <td>1ère ECOFO</td>
+              <td><span class="status-badge badge-accepted">Acceptée</span></td>
+              <td class="text-muted">14 juin 2026</td>
+              <td>
+                <div class="d-flex gap-1">
+                  <a href="#" class="btn-action view" title="Voir"><i class="bi bi-eye"></i></a>
+                  <a href="#" class="btn-action edit" title="Éditer"><i class="bi bi-pencil"></i></a>
+                  <a href="#" class="btn-action del" title="Rejeter"><i class="bi bi-x-lg"></i></a>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td class="text-muted">006</td>
+              <td><div class="student-name">Fidèle Nkurunziza</div></td>
+              <td><span class="badge bg-light text-secondary border" style="font-weight:500;">Lycee Technique</span></td>
+              <td>2ème technique</td>
+              <td><span class="status-badge badge-pending">En attente</span></td>
+              <td class="text-muted">13 juin 2026</td>
+              <td>
+                <div class="d-flex gap-1">
+                  <a href="#" class="btn-action view" title="Voir"><i class="bi bi-eye"></i></a>
+                  <a href="#" class="btn-action edit" title="Éditer"><i class="bi bi-pencil"></i></a>
+                  <a href="#" class="btn-action del" title="Rejeter"><i class="bi bi-x-lg"></i></a>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Pagination -->
+      <div class="d-flex align-items-center justify-content-between px-4 py-3 border-top" style="font-size:.82rem;">
+        <span class="text-muted">Affichage de 1 à 6 sur 248 résultats</span>
+        <nav>
+          <ul class="pagination pagination-sm mb-0">
+            <li class="page-item disabled"><a class="page-link" href="#">&laquo;</a></li>
+            <li class="page-item active"><a class="page-link" href="#" style="background:var(--blue);border-color:var(--blue);">1</a></li>
+            <li class="page-item"><a class="page-link" href="#">2</a></li>
+            <li class="page-item"><a class="page-link" href="#">3</a></li>
+            <li class="page-item"><a class="page-link" href="#">…</a></li>
+            <li class="page-item"><a class="page-link" href="#">41</a></li>
+            <li class="page-item"><a class="page-link" href="#">&raquo;</a></li>
+          </ul>
+        </nav>
+      </div>
+    </div>
+    <!-- /.section-card inscriptions -->
+
+    <!-- ════════════════════════════════════
+         c) DOUBLE COLONNE : Niveaux + Activité
+    ════════════════════════════════════ -->
+    <div class="row g-4 mb-4">
+
+      <!-- Col gauche : Répartition par niveau -->
+      <div class="col-lg-7">
+        <div class="section-card h-100">
+          <div class="card-header-custom mb-4">
+            <div>
+              <div class="section-title">Répartition par niveau</div>
+              <div class="section-subtitle">Nombre d'élèves inscrits par classe</div>
+            </div>
+            <span class="badge" style="background:#eff6ff;color:var(--blue);font-size:.75rem;">Année 2025-2026</span>
+          </div>
+          <div class="px-4 pb-4">
+
+            <!-- 6e ECOFO -->
+            <div class="level-row">
+              <div class="d-flex justify-content-between">
+                <span class="level-label">6ème ECOFO</span>
+                <span class="level-count">52 élèves</span>
+              </div>
+              <div class="progress" style="height:7px;border-radius:20px;">
+                <div class="progress-bar" role="progressbar" style="width:72%;background:var(--blue);" aria-valuenow="72" aria-valuemin="0" aria-valuemax="100"></div>
+              </div>
+            </div>
+
+            <!-- 5e ECOFO -->
+            <div class="level-row">
+              <div class="d-flex justify-content-between">
+                <span class="level-label">5ème ECOFO</span>
+                <span class="level-count">47 élèves</span>
+              </div>
+              <div class="progress" style="height:7px;border-radius:20px;">
+                <div class="progress-bar" role="progressbar" style="width:65%;background:var(--blue);" aria-valuenow="65" aria-valuemin="0" aria-valuemax="100"></div>
+              </div>
+            </div>
+
+            <!-- 4e ECOFO -->
+            <div class="level-row">
+              <div class="d-flex justify-content-between">
+                <span class="level-label">4ème ECOFO</span>
+                <span class="level-count">41 élèves</span>
+              </div>
+              <div class="progress" style="height:7px;border-radius:20px;">
+                <div class="progress-bar" role="progressbar" style="width:57%;background:#7c3aed;" aria-valuenow="57" aria-valuemin="0" aria-valuemax="100"></div>
+              </div>
+            </div>
+
+            <!-- 3e ECOFO -->
+            <div class="level-row">
+              <div class="d-flex justify-content-between">
+                <span class="level-label">3ème ECOFO</span>
+                <span class="level-count">38 élèves</span>
+              </div>
+              <div class="progress" style="height:7px;border-radius:20px;">
+                <div class="progress-bar" role="progressbar" style="width:53%;background:#7c3aed;" aria-valuenow="53" aria-valuemin="0" aria-valuemax="100"></div>
+              </div>
+            </div>
+
+            <!-- 1e technique -->
+            <div class="level-row">
+              <div class="d-flex justify-content-between">
+                <span class="level-label">1ère technique</span>
+                <span class="level-count">58 élèves</span>
+              </div>
+              <div class="progress" style="height:7px;border-radius:20px;">
+                <div class="progress-bar" role="progressbar" style="width:80%;background:var(--green);" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100"></div>
+              </div>
+            </div>
+
+            <!-- 3e technique -->
+            <div class="level-row">
+              <div class="d-flex justify-content-between">
+                <span class="level-label">3ème technique</span>
+                <span class="level-count">44 élèves</span>
+              </div>
+              <div class="progress" style="height:7px;border-radius:20px;">
+                <div class="progress-bar" role="progressbar" style="width:61%;background:var(--green);" aria-valuenow="61" aria-valuemin="0" aria-valuemax="100"></div>
+              </div>
+            </div>
+
+            <!-- 6e technique -->
+            <div class="level-row mb-0">
+              <div class="d-flex justify-content-between">
+                <span class="level-label">6ème technique</span>
+                <span class="level-count">32 élèves</span>
+              </div>
+              <div class="progress" style="height:7px;border-radius:20px;">
+                <div class="progress-bar" role="progressbar" style="width:44%;background:#d97706;" aria-valuenow="44" aria-valuemin="0" aria-valuemax="100"></div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+      <!-- /.col niveau -->
+
+      <!-- Col droite : Activité récente -->
+      <div class="col-lg-5">
+        <div class="section-card h-100">
+          <div class="card-header-custom mb-2">
+            <div>
+              <div class="section-title">Activité récente</div>
+              <div class="section-subtitle">Derniers événements de la plateforme</div>
+            </div>
+          </div>
+          <div class="px-4 pb-4">
+
+            <div class="activity-item">
+              <div class="activity-icon" style="background:#eff6ff;">
+                <i class="bi bi-person-plus-fill" style="color:var(--blue);"></i>
+              </div>
+              <div>
+                <div class="activity-text"><strong>Amina Niyonkuru</strong> a soumis une demande d'inscription.</div>
+                <div class="activity-time"><i class="bi bi-clock me-1"></i>Il y a 20 minutes</div>
+              </div>
+            </div>
+
+            <div class="activity-item">
+              <div class="activity-icon" style="background:#d1fae5;">
+                <i class="bi bi-check-circle-fill" style="color:var(--green);"></i>
+              </div>
+              <div>
+                <div class="activity-text">Inscription de <strong>Bertrand Hakizimana</strong> acceptée.</div>
+                <div class="activity-time"><i class="bi bi-clock me-1"></i>Il y a 1 heure</div>
+              </div>
+            </div>
+
+            <div class="activity-item">
+              <div class="activity-icon" style="background:#fffbeb;">
+                <i class="bi bi-chat-dots-fill" style="color:#d97706;"></i>
+              </div>
+              <div>
+                <div class="activity-text">Nouveau message de <strong>Mme Uwimana</strong> reçu.</div>
+                <div class="activity-time"><i class="bi bi-clock me-1"></i>Il y a 2 heures</div>
+              </div>
+            </div>
+
+            <div class="activity-item">
+              <div class="activity-icon" style="background:#fce7f3;">
+                <i class="bi bi-exclamation-triangle-fill" style="color:#db2777;"></i>
+              </div>
+              <div>
+                <div class="activity-text">Dossier de <strong>Claire Ndayishimiye</strong> mis en révision.</div>
+                <div class="activity-time"><i class="bi bi-clock me-1"></i>Il y a 3 heures</div>
+              </div>
+            </div>
+
+            <div class="activity-item">
+              <div class="activity-icon" style="background:#eff6ff;">
+                <i class="bi bi-person-badge-fill" style="color:var(--blue);"></i>
+              </div>
+              <div>
+                <div class="activity-text">Nouvel enseignant <strong>M. Nzeyimana</strong> ajouté au système.</div>
+                <div class="activity-time"><i class="bi bi-clock me-1"></i>Hier, 16h45</div>
+              </div>
+            </div>
+
+            <div class="activity-item">
+              <div class="activity-icon" style="background:#f0fdf4;">
+                <i class="bi bi-calendar-check-fill" style="color:var(--green);"></i>
+              </div>
+              <div>
+                <div class="activity-text">Calendrier scolaire 2025-2026 publié.</div>
+                <div class="activity-time"><i class="bi bi-clock me-1"></i>Hier, 09h00</div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+      <!-- /.col activité -->
+
+    </div>
+    <!-- /.row double colonne -->
+
+    <!-- ════════════════════════════════════
+         d) SECTION ENSEIGNANTS
+    ════════════════════════════════════ -->
+    <div class="mb-2 d-flex align-items-center justify-content-between">
+      <div>
+        <div class="section-title">Enseignants</div>
+        <div class="section-subtitle" style="font-size:.8rem;color:#94a3b8;">Corps enseignant actif cette année</div>
+      </div>
+      <a href="#" class="btn btn-sm btn-outline-primary" style="border-radius:8px;font-size:.8rem;">
+        Voir tous <i class="bi bi-arrow-right ms-1"></i>
+      </a>
+    </div>
+
+    <div class="row g-4">
+
+      <!-- Enseignant 1 -->
+      <div class="col-sm-6 col-xl-3">
+        <div class="teacher-card">
+          <div class="teacher-avatar">
+            <i class="bi bi-person-fill"></i>
+          </div>
+          <div class="teacher-name">Jean-Pierre Nzeyimana</div>
+          <div class="teacher-subject">Mathématiques</div>
+          <div class="mt-3">
+            <span class="badge" style="background:#d1fae5;color:#065f46;font-size:.72rem;font-weight:600;padding:4px 10px;border-radius:20px;">
+              <i class="bi bi-circle-fill me-1" style="font-size:.45rem;"></i>Actif
+            </span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Enseignant 2 -->
+      <div class="col-sm-6 col-xl-3">
+        <div class="teacher-card">
+          <div class="teacher-avatar">
+            <i class="bi bi-person-fill"></i>
+          </div>
+          <div class="teacher-name">Marie-Claire Uwimana</div>
+          <div class="teacher-subject">Français &amp; Littérature</div>
+          <div class="mt-3">
+            <span class="badge" style="background:#d1fae5;color:#065f46;font-size:.72rem;font-weight:600;padding:4px 10px;border-radius:20px;">
+              <i class="bi bi-circle-fill me-1" style="font-size:.45rem;"></i>Actif
+            </span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Enseignant 3 -->
+      <div class="col-sm-6 col-xl-3">
+        <div class="teacher-card">
+          <div class="teacher-avatar">
+            <i class="bi bi-person-fill"></i>
+          </div>
+          <div class="teacher-name">Théodore Bigirimana</div>
+          <div class="teacher-subject">Sciences de la vie</div>
+          <div class="mt-3">
+            <span class="badge" style="background:#dbeafe;color:#1e40af;font-size:.72rem;font-weight:600;padding:4px 10px;border-radius:20px;">
+              <i class="bi bi-circle-fill me-1" style="font-size:.45rem;"></i>En congé
+            </span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Enseignant 4 -->
+      <div class="col-sm-6 col-xl-3">
+        <div class="teacher-card">
+          <div class="teacher-avatar">
+            <i class="bi bi-person-fill"></i>
+          </div>
+          <div class="teacher-name">Solange Nizigama</div>
+          <div class="teacher-subject">Histoire &amp; Géographie</div>
+          <div class="mt-3">
+            <span class="badge" style="background:#d1fae5;color:#065f46;font-size:.72rem;font-weight:600;padding:4px 10px;border-radius:20px;">
+              <i class="bi bi-circle-fill me-1" style="font-size:.45rem;"></i>Actif
+            </span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+    <!-- /.row enseignants -->
+
+  </div>
+  <!-- /.page-body -->
+
+</div>
+<!-- /.main-content -->
+
+<!-- ═══════════════════════════════════════════
+     SCRIPTS
+════════════════════════════════════════════ -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+  (function () {
+    const sidebar  = document.getElementById('sidebar');
+    const overlay  = document.getElementById('sidebarOverlay');
+    const toggler  = document.getElementById('sidebarToggler');
+
+    function openSidebar() {
+      sidebar.classList.add('open');
+      overlay.classList.add('show');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeSidebar() {
+      sidebar.classList.remove('open');
+      overlay.classList.remove('show');
+      document.body.style.overflow = '';
+    }
+
+    toggler.addEventListener('click', openSidebar);
+    overlay.addEventListener('click', closeSidebar);
+
+    // Close sidebar on nav-link click (mobile)
+    sidebar.querySelectorAll('.nav-link').forEach(function (link) {
+      link.addEventListener('click', function () {
+        if (window.innerWidth < 992) closeSidebar();
+      });
+    });
+  })();
+</script>
+</body>
+</html>

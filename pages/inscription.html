@@ -1,0 +1,337 @@
+﻿<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Demande d'inscription a l'Ecole Monseigneur Bernard Bududira.">
+    <title>Demande d'inscription | Institut Famille des Disciples du Christ</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="icon" type="image/png" sizes="32x32" href="../public/assets/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="../public/assets/favicon-16x16.png">
+    <link rel="shortcut icon" href="../public/assets/favicon.ico">
+    <link rel="apple-touch-icon" sizes="180x180" href="../public/assets/apple-touch-icon.png">
+    <link rel="preconnect" href="https://cdn.jsdelivr.net">
+    <link rel="preconnect" href="https://unpkg.com">
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@600;700;800&family=Kaushan+Script&family=Playball&family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/intl-tel-input/build/css/intlTelInput.css" rel="stylesheet">
+    <link href="../public/assets/css/app.css" rel="stylesheet">
+  </head>
+  <body>
+    <a class="skip-link" href="#main-content" data-i18n="a11y.skipToContent">Aller au contenu principal</a>
+    <nav class="navbar navbar-expand-lg fixed-top app-navbar">
+      <div class="container">
+        <a class="navbar-brand d-flex align-items-center gap-2" href="../index.html">
+          <span class="brand-icon"><img src="../public/assets/apple-touch-icon.png" alt="Logo iFDC"></span>
+          <span class="brand-text">
+            <span class="brand-short" data-config="shortName">iFDC</span>
+            <span class="brand-school playball-regular" data-config="schoolName">Ecole Monseigneur Bernard Bududira</span>
+          </span>
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNavbar" aria-controls="mainNavbar" aria-expanded="false" aria-label="Ouvrir le menu">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="mainNavbar">
+          <ul class="navbar-nav ms-auto align-items-lg-center gap-lg-2" data-render="nav"></ul>
+        </div>
+      </div>
+    </nav>
+
+    <main id="main-content" tabindex="-1">
+      <section class="admission-hero has-particles">
+        <div id="particles-admission" class="particles-layer" aria-hidden="true"></div>
+        <div class="blob-cluster blob-cluster--admission" aria-hidden="true">
+          <span class="blob blob--gold blob--lg"></span>
+          <span class="blob blob--primary blob--md"></span>
+          <span class="blob blob--green blob--sm"></span>
+        </div>
+        <div class="container">
+          <div class="row align-items-center gy-5">
+            <div class="col-lg-6" data-aos="fade-right">
+              <span class="section-kicker">Demande d'inscription</span>
+              <h1 class="hero-title mt-3 mb-4">Inscrire un eleve a la Maternelle, a l'ECOFO ou au Lycee Technique.</h1>
+              <p class="hero-text mb-4">Remplissez ce formulaire pour transmettre une premiere demande. L'administration vous contactera pour confirmer les places disponibles, les documents et la prochaine etape.</p>
+              <div class="admission-checks">
+                <span><i class="bi bi-check2-circle"></i> Maternelle, ECOFO et Lycee Technique</span>
+                <span><i class="bi bi-check2-circle"></i> Reponse administrative</span>
+                <span><i class="bi bi-check2-circle"></i> Donnees organisees</span>
+              </div>
+            </div>
+
+            <div class="col-lg-6" data-aos="fade-left">
+              <div class="admission-photo-card">
+                <img src="../public/assets/images/Administration Directrice d'Internat et Secretaire, Directrice et Prèfete des Etudes.jpeg" alt="Equipe administrative de l'ecole">
+                <div class="admission-note">
+                  <i class="bi bi-journal-check"></i>
+                  <div>
+                    <strong>Accueil administratif</strong>
+                    <span>La direction et le secretariat accompagnent chaque famille dans les etapes du dossier.</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="formulaire-inscription" class="section-pad admission-section">
+        <div class="container">
+          <div class="row g-4 justify-content-center">
+            <div class="col-12 col-xl-10" data-aos="fade-up">
+              <form class="admission-form" data-admission-form novalidate>
+                <div class="form-section-title">
+                  <i class="bi bi-signpost-split"></i>
+                  <div>
+                    <h2>Orientation de la demande</h2>
+                    <p>Ces informations adaptent le dossier d'inscription.</p>
+                  </div>
+                </div>
+
+                <div class="row g-3 mb-5">
+                  <div class="col-md-4">
+                    <label class="form-label" for="applicationType">Type de demande</label>
+                    <div class="dropdown form-dropdown" data-form-dropdown data-required>
+                      <input id="applicationType" name="applicationType" type="hidden" data-form-dropdown-input>
+                      <button class="btn dropdown-toggle form-dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false"><span data-form-dropdown-label>Choisir</span></button>
+                      <ul class="dropdown-menu form-dropdown-menu">
+                        <li><button class="dropdown-item" type="button" data-form-dropdown-option="Premiere inscription">C'est ma premiere annee</button></li>
+                        <li><button class="dropdown-item" type="button" data-form-dropdown-option="Reinscription">Je renouvelle mon inscription</button></li>
+                      </ul>
+                    </div>
+                  </div>
+                  <div class="col-md-4">
+                    <label class="form-label" for="studentStatus">Statut dans l'etablissement</label>
+                    <div class="dropdown form-dropdown" data-form-dropdown data-required>
+                      <input id="studentStatus" name="studentStatus" type="hidden" data-form-dropdown-input>
+                      <button class="btn dropdown-toggle form-dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false"><span data-form-dropdown-label>Choisir</span></button>
+                      <ul class="dropdown-menu form-dropdown-menu">
+                        <li><button class="dropdown-item" type="button" data-form-dropdown-option="Nouveau dans cet etablissement">Nouveau dans cet etablissement</button></li>
+                        <li><button class="dropdown-item" type="button" data-form-dropdown-option="Deja eleve de l'etablissement">Deja eleve de l'etablissement</button></li>
+                      </ul>
+                    </div>
+                  </div>
+                  <div class="col-md-4">
+                    <label class="form-label" for="schoolLevel">Cycle demande</label>
+                    <div class="dropdown form-dropdown" data-form-dropdown data-required>
+                      <input id="schoolLevel" name="schoolLevel" type="hidden" data-form-dropdown-input>
+                      <button class="btn dropdown-toggle form-dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false"><span data-form-dropdown-label>Maternelle, ECOFO ou Lycee Technique</span></button>
+                      <ul class="dropdown-menu form-dropdown-menu">
+                        <li><button class="dropdown-item" type="button" data-form-dropdown-option="Maternelle">Maternelle</button></li>
+                        <li><button class="dropdown-item" type="button" data-form-dropdown-option="ECOFO">ECOFO</button></li>
+                        <li><button class="dropdown-item" type="button" data-form-dropdown-option="Lycee Technique">Lycee Technique</button></li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="form-section-title">
+                  <i class="bi bi-person-badge"></i>
+                  <div>
+                    <h2>Informations de l'eleve</h2>
+                    <p>Identite et niveau souhaite.</p>
+                  </div>
+                </div>
+
+                <div class="row g-3">
+                  <div class="col-md-6">
+                    <label class="form-label" for="studentFirstName">Prenom de l'eleve</label>
+                    <input class="form-control" id="studentFirstName" name="studentFirstName" type="text" placeholder="Ex: Aline" required>
+                  </div>
+                  <div class="col-md-6">
+                    <label class="form-label" for="studentLastName">Nom de l'eleve</label>
+                    <input class="form-control" id="studentLastName" name="studentLastName" type="text" placeholder="Ex: Ndayishimiye" required>
+                  </div>
+                  <div class="col-md-6">
+                    <label class="form-label" for="birthDate">Date de naissance</label>
+                    <div class="date-parts-group" data-date-parts>
+                      <input id="birthDate" name="birthDate" type="hidden" data-birth-date-value>
+                      <input class="form-control" id="birthDay" name="birthDay" type="number" min="1" max="31" inputmode="numeric" placeholder="Jour" required data-birth-day>
+                      <input class="form-control" id="birthMonth" name="birthMonth" type="number" min="1" max="12" inputmode="numeric" placeholder="Mois" required data-birth-month>
+                      <input class="form-control" id="birthYear" name="birthYear" type="number" min="1990" max="2026" inputmode="numeric" placeholder="Annee" required data-birth-year>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <label class="form-label" for="gender">Sexe</label>
+                    <div class="dropdown form-dropdown" data-form-dropdown data-required>
+                      <input id="gender" name="gender" type="hidden" data-form-dropdown-input>
+                      <button class="btn dropdown-toggle form-dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false"><span data-form-dropdown-label>Choisir</span></button>
+                      <ul class="dropdown-menu form-dropdown-menu">
+                        <li><button class="dropdown-item" type="button" data-form-dropdown-option="Fille">Fille</button></li>
+                        <li><button class="dropdown-item" type="button" data-form-dropdown-option="Garcon">Garcon</button></li>
+                      </ul>
+                    </div>
+                  </div>
+
+                  <div class="col-md-6">
+                    <label class="form-label" for="requestedClass">Classe demandee</label>
+                    <div class="dropdown form-dropdown" data-form-dropdown data-required data-class-dropdown>
+                      <input id="requestedClass" name="requestedClass" type="hidden" data-form-dropdown-input>
+                      <button class="btn dropdown-toggle form-dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false"><span data-form-dropdown-label>Selectionner</span></button>
+                      <ul class="dropdown-menu form-dropdown-menu">
+                        <li data-class-empty><span class="dropdown-item disabled">Choisir d'abord le cycle</span></li>
+                        <li><button class="dropdown-item" type="button" data-level="Maternelle" data-form-dropdown-option="Petite section">Petite section</button></li>
+                        <li><button class="dropdown-item" type="button" data-level="Maternelle" data-form-dropdown-option="Moyenne section">Moyenne section</button></li>
+                        <li><button class="dropdown-item" type="button" data-level="Maternelle" data-form-dropdown-option="Grande section">Grande section</button></li>
+                        <li><button class="dropdown-item" type="button" data-level="ECOFO" data-form-dropdown-option="1ere ECOFO">1ere ECOFO</button></li>
+                        <li><button class="dropdown-item" type="button" data-level="ECOFO" data-form-dropdown-option="2eme ECOFO">2eme ECOFO</button></li>
+                        <li><button class="dropdown-item" type="button" data-level="ECOFO" data-form-dropdown-option="3eme ECOFO">3eme ECOFO</button></li>
+                        <li><button class="dropdown-item" type="button" data-level="ECOFO" data-form-dropdown-option="4eme ECOFO">4eme ECOFO</button></li>
+                        <li><button class="dropdown-item" type="button" data-level="ECOFO" data-form-dropdown-option="5eme ECOFO">5eme ECOFO</button></li>
+                        <li><button class="dropdown-item" type="button" data-level="ECOFO" data-form-dropdown-option="6eme ECOFO">6eme ECOFO</button></li>
+                        <li><button class="dropdown-item" type="button" data-level="ECOFO" data-form-dropdown-option="7eme ECOFO">7eme ECOFO</button></li>
+                        <li><button class="dropdown-item" type="button" data-level="ECOFO" data-form-dropdown-option="8eme ECOFO">8eme ECOFO</button></li>
+                        <li><button class="dropdown-item" type="button" data-level="ECOFO" data-form-dropdown-option="9eme ECOFO">9eme ECOFO</button></li>
+                        <li><button class="dropdown-item" type="button" data-level="Lycee Technique" data-form-dropdown-option="10eme technique">10eme technique</button></li>
+                        <li><button class="dropdown-item" type="button" data-level="Lycee Technique" data-form-dropdown-option="11eme technique">11eme technique</button></li>
+                        <li><button class="dropdown-item" type="button" data-level="Lycee Technique" data-form-dropdown-option="12eme technique">12eme technique</button></li>
+                      </ul>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <label class="form-label" for="previousSchool">Ecole precedente</label>
+                    <input class="form-control" id="previousSchool" name="previousSchool" type="text" placeholder="Ex: Ecole Sainte Marie">
+                  </div>
+                </div>
+
+                <div class="form-section-title mt-5">
+                  <i class="bi bi-people"></i>
+                  <div>
+                    <h2>Parent ou tuteur</h2>
+                    <p>Coordonnees de la personne responsable.</p>
+                  </div>
+                </div>
+
+                <div class="row g-3">
+                  <div class="col-md-6">
+                    <label class="form-label" for="guardianName">Nom complet</label>
+                    <input class="form-control" id="guardianName" name="guardianName" type="text" placeholder="Ex: Jean Ndayizeye" required>
+                  </div>
+                  <div class="col-md-6">
+                    <label class="form-label" for="relationship">Lien avec l'eleve</label>
+                    <div class="dropdown form-dropdown" data-form-dropdown data-required>
+                      <input id="relationship" name="relationship" type="hidden" data-form-dropdown-input>
+                      <button class="btn dropdown-toggle form-dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false"><span data-form-dropdown-label>Choisir</span></button>
+                      <ul class="dropdown-menu form-dropdown-menu">
+                        <li><button class="dropdown-item" type="button" data-form-dropdown-option="Pere">Pere</button></li>
+                        <li><button class="dropdown-item" type="button" data-form-dropdown-option="Mere">Mere</button></li>
+                        <li><button class="dropdown-item" type="button" data-form-dropdown-option="Tuteur">Tuteur</button></li>
+                        <li><button class="dropdown-item" type="button" data-form-dropdown-option="Autre responsable">Autre responsable</button></li>
+                      </ul>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <label class="form-label" for="phoneInput">Telephone</label>
+                    <input id="phone" name="phone" type="hidden" data-phone-full>
+                    <input class="form-control phone-field" id="phoneInput" name="phoneLocal" type="tel" placeholder="00 00 00 00" required data-phone-input>
+                  </div>
+                  <div class="col-md-6">
+                    <label class="form-label" for="email">Email</label>
+                    <input class="form-control" id="email" name="email" type="email" placeholder="nom@example.com">
+                  </div>
+                  <div class="col-12">
+                    <label class="form-label" for="address">Adresse</label>
+                    <input class="form-control" id="address" name="address" type="text" placeholder="Ex: Rohero, Bujumbura" required>
+                  </div>
+                </div>
+
+                <div class="form-section-title mt-5">
+                  <i class="bi bi-folder2-open"></i>
+                  <div>
+                    <h2>Dossier et message</h2>
+                    <p>Precisez les besoins et documents deja disponibles.</p>
+                  </div>
+                </div>
+
+                <div class="row g-3">
+                  <div class="col-md-6">
+                    <label class="form-label" for="schoolYear">Annee scolaire visee</label>
+                    <div class="dropdown form-dropdown" data-form-dropdown data-required>
+                      <input id="schoolYear" name="schoolYear" type="hidden" data-form-dropdown-input>
+                      <button class="btn dropdown-toggle form-dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false"><span data-form-dropdown-label>Selectionner</span></button>
+                      <ul class="dropdown-menu form-dropdown-menu">
+                        <li><button class="dropdown-item" type="button" data-form-dropdown-option="2026 - 2027">2026 - 2027</button></li>
+                        <li><button class="dropdown-item" type="button" data-form-dropdown-option="2027 - 2028">2027 - 2028</button></li>
+                      </ul>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <label class="form-label" for="documents">Documents disponibles</label>
+                    <div class="dropdown form-dropdown" data-form-dropdown>
+                      <input id="documents" name="documents" type="hidden" value="Bulletin uniquement" data-form-dropdown-input>
+                      <button class="btn dropdown-toggle form-dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false"><span data-form-dropdown-label>Bulletin uniquement</span></button>
+                      <ul class="dropdown-menu form-dropdown-menu">
+                        <li><button class="dropdown-item active" type="button" data-form-dropdown-option="Bulletin uniquement">Bulletin uniquement</button></li>
+                        <li><button class="dropdown-item" type="button" data-form-dropdown-option="Bulletin + acte de naissance">Bulletin + acte de naissance</button></li>
+                        <li><button class="dropdown-item" type="button" data-form-dropdown-option="Dossier complet">Dossier complet</button></li>
+                        <li><button class="dropdown-item" type="button" data-form-dropdown-option="Aucun pour le moment">Aucun pour le moment</button></li>
+                      </ul>
+                    </div>
+                  </div>
+                  <div class="col-12">
+                    <label class="form-label" for="message">Message supplementaire</label>
+                    <textarea class="form-control" id="message" name="message" rows="5" placeholder="Expliquez rapidement la situation de l'eleve, son niveau, ou vos questions."></textarea>
+                  </div>
+                  <div class="col-12">
+                    <label class="form-check admission-consent bootstrap-consent">
+                      <input class="form-check-input" type="checkbox" required data-consent-check>
+                      <span class="form-check-label">Je confirme que les informations envoyees sont correctes.</span>
+                    </label>
+                  </div>
+                </div>
+
+                <div class="form-alert" data-form-alert hidden></div>
+
+                <div class="d-flex flex-column flex-md-row gap-3 mt-4">
+                  <button class="auth-btn auth-btn--primary" type="submit" data-submit-button disabled>Envoyer la demande</button>
+                  <a class="auth-btn auth-btn--light" href="../index.html">Retour au site</a>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer site-footer--compact">
+      <div class="container d-flex flex-column flex-md-row align-items-md-center justify-content-between gap-3">
+        <span><span data-config="name"></span> &copy; <span data-config="year"></span></span>
+        <div class="footer-bottom-actions">
+          <span data-config="location"></span>
+          <button class="theme-toggle-btn theme-toggle-desktop" type="button" data-theme-toggle aria-label="Changer le theme">
+              <i class="bi bi-moon-stars" data-theme-icon></i>
+              <span data-theme-label>Dark</span>
+            </button>
+          <div class="dropdown language-dropdown">
+            <button class="btn dropdown-toggle language-dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Langue">
+              <i class="bi bi-translate"></i><span data-lang-current>Francais</span>
+            </button>
+            <ul class="dropdown-menu language-dropdown-menu">
+              <li><button class="dropdown-item" type="button" data-lang-option="fr">Francais</button></li>
+              <li><button class="dropdown-item" type="button" data-lang-option="en">English</button></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    <button class="theme-toggle-btn theme-toggle-float" type="button" data-theme-toggle aria-label="Changer le theme">
+      <i class="bi bi-moon-stars" data-theme-icon></i>
+      <span data-theme-label>Dark</span>
+    </button>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/intl-tel-input/build/js/intlTelInput.min.js"></script>
+    <script src="../public/assets/js/config.js"></script>
+    <script src="../public/assets/js/main.js"></script>
+  </body>
+</html>
+
+
+
