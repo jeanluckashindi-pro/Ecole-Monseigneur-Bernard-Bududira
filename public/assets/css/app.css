@@ -5206,9 +5206,27 @@ body[data-theme="dark"] .language-dropdown-menu,
 body[data-theme="dark"] .dropdown-menu,
 body[data-theme="dark"] .form-dropdown-menu {
   border-color: var(--app-line) !important;
-  background: rgba(24, 31, 39, 0.94) !important;
+  background: rgba(0, 7, 15, 0.92) !important;
   color: var(--app-ink) !important;
   box-shadow: 0 22px 60px rgba(0, 0, 0, 0.34) !important;
+}
+
+body[data-theme="dark"] .app-navbar {
+  background: rgba(0, 7, 15, 0.92) !important;
+  border-bottom-color: rgba(249, 249, 249, 0.08) !important;
+}
+
+/* Pill desktop navbar-nav dark mode */
+body[data-theme="dark"] .app-navbar .navbar-nav {
+  border-color: rgba(249, 249, 249, 0.1) !important;
+  background: rgba(24, 31, 39, 0.85) !important;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.28) !important;
+}
+
+body[data-theme="light"] .app-navbar .navbar-nav {
+  border-color: rgba(17, 24, 39, 0.08);
+  background: rgba(255, 255, 255, 0.72);
+  box-shadow: 0 16px 40px rgba(15, 23, 42, 0.06);
 }
 
 /* Mobile nav links dark mode */
@@ -5216,6 +5234,15 @@ body[data-theme="dark"] .app-navbar .nav-link,
 body[data-theme="dark"] .app-navbar .nav-link-icon {
   color: var(--mbx-text) !important;
   background: var(--mbx-card) !important;
+}
+
+/* Desktop : liens transparents dans la pill */
+@media (min-width: 992px) {
+  body[data-theme="dark"] .app-navbar .nav-link,
+  body[data-theme="dark"] .app-navbar .nav-link-icon {
+    background: transparent !important;
+    color: rgba(249, 249, 249, 0.82) !important;
+  }
 }
 
 body[data-theme="dark"] .app-navbar .nav-link:hover,
@@ -5231,10 +5258,13 @@ body[data-theme="dark"] .app-navbar .nav-link-icon i {
   color: var(--mbx-primary) !important;
 }
 
+/* Icône blanche sur lien actif/hover */
 body[data-theme="dark"] .app-navbar .nav-link:hover i,
 body[data-theme="dark"] .app-navbar .nav-link-icon:hover i,
 body[data-theme="dark"] .app-navbar .nav-link.active i,
 body[data-theme="dark"] .app-navbar .nav-link-icon.active i {
+  color: #ffffff !important;
+}
   color: #ffffff !important;
 }
 
@@ -6377,10 +6407,5 @@ body[data-theme="dark"] .drawer-group-label {
   color: rgba(249, 249, 249, 0.4);
 }
 
-/* Cacher le theme-toggle-float sur mobile (remplacé par le drawer) */
-@media (max-width: 991.98px) {
-  .theme-toggle-float {
-    display: none !important;
-  }
-}
+/* Drawer : ouverture depuis la gauche */
 
