@@ -1455,6 +1455,24 @@ body {
   overflow-x: clip;
 }
 
+/* Prevent AOS fade-left/fade-right from causing horizontal scroll */
+main,
+.school-hero,
+.about-section,
+.strengths-section,
+.programs-section,
+.kindergarten-section,
+.method-section,
+.learning-section,
+.student-life-section,
+.schedule-section,
+.refectory-section,
+.leadership-section,
+.gallery-section,
+.contact-section {
+  overflow-x: clip;
+}
+
 .container {
   --bs-gutter-x: clamp(1.25rem, 4vw, 2rem);
 }
@@ -4518,6 +4536,21 @@ body.nav-open {
     opacity: 1 !important;
     transform: none !important;
     transition: none !important;
+  }
+}
+
+/* Sur mobile, neutraliser les animations horizontales AOS qui causent le scroll */
+@media (max-width: 767.98px) {
+  [data-aos="fade-left"],
+  [data-aos="fade-right"] {
+    transform: none !important;
+    opacity: 1 !important;
+  }
+
+  [data-aos="fade-left"].aos-animate,
+  [data-aos="fade-right"].aos-animate {
+    transform: none !important;
+    opacity: 1 !important;
   }
 }
 /* Direction, maternelle and refectory sections */

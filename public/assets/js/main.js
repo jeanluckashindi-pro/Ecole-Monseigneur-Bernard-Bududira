@@ -421,7 +421,10 @@ document.addEventListener("DOMContentLoaded", () => {
       duration: prefersReducedMotion ? 0 : 700,
       easing: "ease-out-cubic",
       once: true,
-      disable: prefersReducedMotion
+      disable: prefersReducedMotion,
+      disableMutationObserver: false,
+      offset: 60,
+      anchorPlacement: "top-bottom"
     });
   }
 
