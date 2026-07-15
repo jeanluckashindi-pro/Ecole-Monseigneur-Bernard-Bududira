@@ -8,7 +8,7 @@ const schoolAsset = (path) => `${SCHOOL_ASSET_BASE}/${path}`;
 window.SCHOOL_CONFIG = {
   assetBase: SCHOOL_ASSET_BASE,
   name: "Ecole Monseigneur Bernard Bududira",
-  shortName: "Oeuvre de la Congregation",
+  shortName: "Œuvre de la Congrégation",
   schoolName: "Ecole Monseigneur Bernard Bududira",
   tagline: "Former des eleves curieux, confiants et prets pour demain.",
   eyebrow: "Oeuvre de la Congregation",

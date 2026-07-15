@@ -8,8 +8,8 @@ document.addEventListener("DOMContentLoaded", () => {
   const translations = {
     fr: {
       a11y: { skipToContent: "Aller au contenu principal", openMenu: "Ouvrir le menu", closeMenu: "Fermer le menu" },
-      nav: { home: "Accueil", about: "A propos", strengths: "Atouts", programs: "Sections", schedule: "Horaires", gallery: "Galerie", contact: "Contact", language: "Langue" },
-      hero: { eyebrow: "Oeuvre de la Congregation", title: "Ecole Monseigneur Bernard Bududira", text: "Une institution de l'Institut Famille des Disciples du Christ, avec la Section Maternelle, l'ECOFO et le Lycee Technique Monseigneur Bernard Bududira.", secondary: "Voir nos sections", third: "Visiter la galerie", badge: "Grandir avec foi et confiance", points: ["Section Maternelle", "ECOFO", "Lycee Technique"], cards: ["Education humaine et chretienne", "Parcours de la maternelle au lycee", "Suivi des familles"] },
+      nav: { home: "Accueil", about: "A propos", strengths: "Atouts", programs: "Sections", schedule: "Horaires", gallery: "Galerie", contact: "Contact", language: "Langue", groupMain: "Navigation", groupSettings: "Preferences" },
+      hero: { eyebrow: "Œuvre éducative de la Congrégation", title: "Ecole Monseigneur Bernard Bududira", text: "Une institution de l'Institut Famille des Disciples du Christ, avec la Section Maternelle, l'ECOFO et le Lycee Technique Monseigneur Bernard Bududira.", secondary: "Voir nos sections", third: "Visiter la galerie", badge: "Grandir avec foi et confiance", points: ["Section Maternelle", "ECOFO", "Lycee Technique"], cards: ["Education humaine et chretienne", "Parcours de la maternelle au lycee", "Suivi des familles"] },
       about: { eyebrow: "A propos", title: "Une oeuvre educative de la Congregation.", text: "L'Ecole Monseigneur Bernard Bududira est une oeuvre de l'Institut Famille des Disciples du Christ. Elle accompagne les enfants et les jeunes de la maternelle a l'ECOFO puis au Lycee Technique.", cardTitle: "Une ecole proche des familles", cardText: "Education, suivi et confiance au quotidien.", features: [ { title: "Section Maternelle", text: "Eveil, langage et premiers apprentissages." }, { title: "ECOFO", text: "Enseignement fondamental et bases solides." }, { title: "Lycee Technique", text: "Competences techniques et preparation a l'avenir." } ] },
       strengths: { eyebrow: "Nos atouts", title: "Une organisation pensee pour la progression.", text: "Nous combinons accompagnement, exigence, outils modernes et cadre stable pour aider chaque eleve a progresser.", metric: "piliers pour apprendre avec confiance", cards: [ { title: "Suivi individuel", text: "Chaque eleve est accompagne avec attention selon son rythme et ses difficultes." }, { title: "Exigence scolaire", text: "Des objectifs clairs, des evaluations regulieres et une vraie culture de l'effort." }, { title: "Outils modernes", text: "Une pedagogie ouverte aux sciences, au numerique et aux projets pratiques." }, { title: "Cadre rassurant", text: "Discipline, respect et securite pour apprendre dans un environnement stable." } ] },
       programs: { eyebrow: "Sections", title: "Les trois sections de l'Ecole Monseigneur Bernard Bududira.", items: [ { icon: "bi-backpack", level: "Maternelle", title: "Section Maternelle", text: "Un cadre d'eveil pour developper le langage, la socialisation, la curiosite et les premiers apprentissages.", details: ["Petite section", "Moyenne section", "Grande section"] }, { icon: "bi-book-half", level: "ECOFO", title: "Ecole Fondamentale", text: "Un parcours fondamental pour construire les bases scolaires, humaines et spirituelles des eleves.", details: ["Lecture et calcul", "Suivi regulier", "Formation humaine"] }, { icon: "bi-tools", level: "Lycee Technique", title: "Lycee Technique Monseigneur Bernard Bududira", text: "Une formation technique orientee vers les competences pratiques, la responsabilite et la preparation professionnelle.", details: ["Competences techniques", "Discipline", "Preparation a l'avenir"] } ] },
@@ -28,7 +28,7 @@ document.addEventListener("DOMContentLoaded", () => {
     },
     en: {
       a11y: { skipToContent: "Skip to main content", openMenu: "Open menu", closeMenu: "Close menu" },
-      nav: { home: "Home", about: "About", strengths: "Strengths", programs: "Sections", schedule: "Schedule", gallery: "Gallery", contact: "Contact", language: "Language" },
+      nav: { home: "Home", about: "About", strengths: "Strengths", programs: "Sections", schedule: "Schedule", gallery: "Gallery", contact: "Contact", language: "Language", groupMain: "Navigation", groupSettings: "Preferences" },
       hero: { eyebrow: "Work of the Congregation", title: "Ecole Monseigneur Bernard Bududira", text: "An institution of Institut Famille des Disciples du Christ, with Kindergarten, ECOFO and Lycee Technique Monseigneur Bernard Bududira.", secondary: "View sections", third: "Visit gallery", badge: "Growing with faith and confidence", points: ["Kindergarten", "ECOFO", "Technical Lycee"], cards: ["Human and Christian education", "From kindergarten to technical lycee", "Family support"] },
       about: { eyebrow: "About", title: "An educational work of the Congregation.", text: "Ecole Monseigneur Bernard Bududira is a work of Institut Famille des Disciples du Christ. It supports children and young people from Kindergarten to ECOFO and the Technical Lycee.", cardTitle: "A school close to families", cardText: "Education, follow-up and trust every day.", features: [ { title: "Kindergarten", text: "Awakening, language and first learning steps." }, { title: "ECOFO", text: "Fundamental education and solid foundations." }, { title: "Technical Lycee", text: "Technical skills and preparation for the future." } ] },
       strengths: { eyebrow: "Strengths", title: "A structure designed for progress.", text: "We combine guidance, high standards, modern tools and a stable environment to help every learner progress.", metric: "pillars for confident learning", cards: [ { title: "Individual support", text: "Every student is guided with care according to their pace and needs." }, { title: "Academic standards", text: "Clear goals, regular assessments and a strong culture of effort." }, { title: "Modern tools", text: "Teaching open to science, digital learning and practical projects." }, { title: "Safe environment", text: "Discipline, respect and security for stable learning." } ] },
@@ -66,32 +66,44 @@ document.addEventListener("DOMContentLoaded", () => {
   };
 
   const renderNav = (lang) => {
-    const nav = document.querySelector('[data-render="nav"]');
-    if (!nav) return;
-
     const labels = translations[lang].nav;
     const items = [
-      { label: labels.home, target: "#accueil", icon: "bi-house-door" },
-      { label: labels.about, target: "#apropos", icon: "bi-info-circle" },
-      { label: labels.strengths, target: "#atouts", icon: "bi-stars" },
-      { label: labels.programs, target: "#programmes", icon: "bi-journal-bookmark" },
-      { label: labels.schedule, target: "#horaires-internat", icon: "bi-clock-history" },
-      { label: labels.contact, target: "#contact", icon: "bi-chat-dots" }
+      { label: labels.home,      target: "#accueil",          icon: "bi-house-door" },
+      { label: labels.about,     target: "#apropos",          icon: "bi-info-circle" },
+      { label: labels.strengths, target: "#atouts",           icon: "bi-stars" },
+      { label: labels.programs,  target: "#programmes",       icon: "bi-journal-bookmark" },
+      { label: labels.schedule,  target: "#horaires-internat",icon: "bi-clock-history" },
+      { label: labels.contact,   target: "#contact",          icon: "bi-chat-dots" }
     ];
 
-    nav.innerHTML = items.map((item, index) => `
-      <li class="nav-item">
-        <a class="nav-link nav-link-icon ${index === 0 ? "active" : ""}" href="${isSubPage ? `${homePath}${item.target}` : item.target}">
-          <i class="bi ${item.icon}"></i><span>${item.label}</span>
-        </a>
-      </li>
-    `).join("") + `
-      <li class="nav-item theme-nav-item">
-        <button class="theme-toggle-btn theme-toggle-mobile" type="button" data-theme-toggle aria-label="Changer le theme">
-          <i class="bi bi-moon-stars" data-theme-icon></i><span data-theme-label>Dark</span>
-        </button>
-      </li>
-    `;
+    const href = (target) => isSubPage ? `${homePath}${target}` : target;
+
+    // Desktop nav
+    const desktopNav = document.querySelector('[data-render="nav-desktop"]');
+    if (desktopNav) {
+      desktopNav.innerHTML = items.map((item, i) => `
+        <li class="nav-item">
+          <a class="nav-link nav-link-icon ${i === 0 ? "active" : ""}" href="${href(item.target)}">
+            <i class="bi ${item.icon}"></i><span>${item.label}</span>
+          </a>
+        </li>
+      `).join("");
+    }
+
+    // Mobile drawer nav
+    const mobileNav = document.querySelector('[data-render="nav-mobile"]');
+    if (mobileNav) {
+      mobileNav.innerHTML = items.map((item, i) => `
+        <li class="drawer-nav-item">
+          <a class="drawer-nav-link ${i === 0 ? "active" : ""}" href="${href(item.target)}" data-drawer-link>
+            <span class="drawer-nav-icon"><i class="bi ${item.icon}"></i></span>
+            <span class="drawer-nav-label">${item.label}</span>
+            <i class="bi bi-chevron-right drawer-nav-arrow"></i>
+          </a>
+        </li>
+      `).join("");
+    }
+
     window.syncSchoolThemeButtons?.();
   };
 
@@ -428,19 +440,72 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  const navbarCollapse = document.getElementById("mainNavbar");
-  const navbarToggler = document.querySelector(".navbar-toggler");
-  if (navbarCollapse && navbarToggler) {
-    const syncMenuAria = (isOpen) => {
-      const labels = translations[currentLang()].a11y;
-      navbarToggler.setAttribute("aria-expanded", isOpen ? "true" : "false");
-      navbarToggler.setAttribute("aria-label", isOpen ? labels.closeMenu : labels.openMenu);
-      document.body.classList.toggle("nav-open", isOpen);
-    };
+  // ── Mobile Drawer ──────────────────────────────────────────
+  const drawer        = document.getElementById("mobileDrawer");
+  const drawerOverlay = document.getElementById("mobileDrawerOverlay");
+  const menuBtn       = document.getElementById("mobileMenuBtn");
+  const closeBtn      = document.getElementById("mobileMenuClose");
 
-    navbarCollapse.addEventListener("shown.bs.collapse", () => syncMenuAria(true));
-    navbarCollapse.addEventListener("hidden.bs.collapse", () => syncMenuAria(false));
-  }
+  const openDrawer = () => {
+    if (!drawer) return;
+    drawer.hidden = false;
+    requestAnimationFrame(() => {
+      drawer.classList.add("is-open");
+      drawerOverlay?.classList.add("is-visible");
+    });
+    document.body.classList.add("drawer-open");
+    menuBtn?.setAttribute("aria-expanded", "true");
+    closeBtn?.focus();
+  };
+
+  const closeDrawer = () => {
+    if (!drawer) return;
+    drawer.classList.remove("is-open");
+    drawerOverlay?.classList.remove("is-visible");
+    document.body.classList.remove("drawer-open");
+    menuBtn?.setAttribute("aria-expanded", "false");
+    drawer.addEventListener("transitionend", () => { drawer.hidden = true; }, { once: true });
+    menuBtn?.focus();
+  };
+
+  menuBtn?.addEventListener("click", () => {
+    drawer?.hidden === false && drawer.classList.contains("is-open")
+      ? closeDrawer()
+      : openDrawer();
+  });
+
+  closeBtn?.addEventListener("click", closeDrawer);
+  drawerOverlay?.addEventListener("click", closeDrawer);
+
+  // Fermer le drawer quand on clique sur un lien nav
+  document.addEventListener("click", (e) => {
+    if (e.target.closest("[data-drawer-link]")) {
+      closeDrawer();
+    }
+  });
+
+  // Fermer avec Escape
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape" && drawer && !drawer.hidden && drawer.classList.contains("is-open")) {
+      closeDrawer();
+    }
+  });
+
+  // Sync lang buttons dans le drawer
+  document.querySelectorAll(".drawer-lang-btn").forEach(btn => {
+    btn.addEventListener("click", () => {
+      const lang = btn.dataset.langOption;
+      localStorage.setItem("schoolLang", lang);
+      applyTranslations(lang);
+      document.querySelectorAll(".drawer-lang-btn").forEach(b =>
+        b.classList.toggle("active", b.dataset.langOption === lang)
+      );
+    });
+  });
+  // Marquer la langue active au chargement
+  document.querySelectorAll(".drawer-lang-btn").forEach(b =>
+    b.classList.toggle("active", b.dataset.langOption === currentLang())
+  );
 
   initAdmissionForm();
 
@@ -467,16 +532,6 @@ document.addEventListener("DOMContentLoaded", () => {
       return;
     }
 
-    const openMenu = document.querySelector(".navbar-collapse.show");
-
-    if (event.target.closest(".navbar .nav-link, .navbar .auth-btn")) {
-      if (openMenu) bootstrap.Collapse.getOrCreateInstance(openMenu).hide();
-      return;
-    }
-
-    if (openMenu && !event.target.closest(".app-navbar")) {
-      bootstrap.Collapse.getOrCreateInstance(openMenu).hide();
-    }
   });
 });
 
