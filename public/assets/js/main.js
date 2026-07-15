@@ -1,4 +1,4 @@
-﻿document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener("DOMContentLoaded", () => {
   const config = window.SCHOOL_CONFIG;
   const isSubPage = window.location.pathname.includes("/pages/");
   const homePath = isSubPage ? "../index.html" : "index.html";
@@ -48,6 +48,7 @@
     }
   };
 
+  const assetPath = (path) => `${config.assetBase || "public/assets"}/${path}`;
   const getValue = (source, path) => path.split(".").reduce((value, part) => value?.[part], source);
   const currentLang = () => localStorage.getItem("schoolLang") || "fr";
 
@@ -124,9 +125,9 @@
     if (!programs) return;
     const labels = translations[lang].nav;
     const programImages = [
-      "public/assets/images/Section Maternelle.jpeg",
-      "public/assets/images/eleves rensemblement 2.jpeg",
-      "public/assets/images/Fille_avec_des_cahiers.jpg"
+      assetPath("images/Section Maternelle.jpeg"),
+      assetPath("images/eleves rensemblement 2.jpeg"),
+      assetPath("images/Fille_avec_des_cahiers.jpg")
     ];
     programs.innerHTML = `
       <div class="swiper program-swiper">

@@ -1,6 +1,14 @@
-ï»¿window.SCHOOL_CONFIG = {
+const SCHOOL_ASSET_BASE = (() => {
+  const scriptSrc = document.currentScript?.getAttribute("src") || "";
+  return scriptSrc.includes("public/assets/") ? "public/assets" : "assets";
+})();
+
+const schoolAsset = (path) => `${SCHOOL_ASSET_BASE}/${path}`;
+
+window.SCHOOL_CONFIG = {
+  assetBase: SCHOOL_ASSET_BASE,
   name: "Institut Famille des Disciples du Christ",
-  shortName: "Ã‰cole Monseigneur Bernard Bududira",
+  shortName: "École Monseigneur Bernard Bududira",
   schoolName: "Oeuvre educative de la Congregation",
   tagline: "Former des eleves curieux, confiants et prets pour demain.",
   eyebrow: "Oeuvre de la Congregation",
@@ -13,20 +21,20 @@
   whatsappPhone: "+257 66 25 20 99",
   email: "contact@ifdc.bi",
   address: "Bujumbura, Burundi",
-  heroImage: "public/assets/images/Hero.jpeg",
-  aboutImage: "public/assets/images/eleves rensemblement.jpeg",
+  heroImage: schoolAsset("images/Hero.jpeg"),
+  aboutImage: schoolAsset("images/eleves rensemblement.jpeg"),
   gallery: [
-    "public/assets/images/Directrice avec l'Encadreuse.jpeg",
-    "public/assets/images/Soeur Directrice.jpeg",
-    "public/assets/images/Administration Directrice d'Internat et Secretaire, Directrice et PrÃ¨fete des Etudes.jpeg",
-    "public/assets/images/Section Maternelle.jpeg",
-    "public/assets/images/Refectoire.jpeg",
-    "public/assets/images/eleves rensemblement.jpeg",
-    "public/assets/images/eleves rensemblement 2.jpeg",
-    "public/assets/images/enfant_entrain_d_ecrire.jpg",
-    "public/assets/images/enfant_bokk.jpg",
-    "public/assets/images/Fille_avec_cahier.jpg",
-    "public/assets/images/deux_enfants.jpg"
+    schoolAsset("images/Directrice avec l'Encadreuse.jpeg"),
+    schoolAsset("images/Soeur Directrice.jpeg"),
+    schoolAsset("images/Administration Directrice d'Internat et Secretaire, Directrice et Prèfete des Etudes.jpeg"),
+    schoolAsset("images/Section Maternelle.jpeg"),
+    schoolAsset("images/Refectoire.jpeg"),
+    schoolAsset("images/eleves rensemblement.jpeg"),
+    schoolAsset("images/eleves rensemblement 2.jpeg"),
+    schoolAsset("images/enfant_entrain_d_ecrire.jpg"),
+    schoolAsset("images/enfant_bokk.jpg"),
+    schoolAsset("images/Fille_avec_cahier.jpg"),
+    schoolAsset("images/deux_enfants.jpg")
   ],
   programs: [
     {
