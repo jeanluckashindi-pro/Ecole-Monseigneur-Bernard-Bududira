@@ -1368,9 +1368,15 @@ body {
 .navbar-toggler {
   width: 44px;
   height: 44px;
-  border: 1px solid var(--app-line);
+  border: none;
   border-radius: 999px;
-  box-shadow: none !important;
+  background: var(--app-primary);
+  color: #ffffff;
+  box-shadow: 0 6px 18px rgba(11, 110, 232, 0.28) !important;
+}
+
+.navbar-toggler-icon {
+  filter: brightness(0) invert(1);
 }
 
 .nav-link-icon {
@@ -2115,30 +2121,10 @@ footer {
     display: inline-grid;
     place-items: center;
     flex: 0 0 auto;
-    background: #ffffff;
+    background: var(--app-primary);
   }
 
-  .app-navbar .navbar-collapse {
-    flex: 0 0 100%;
-    margin-top: 12px;
-    padding: 12px;
-    border: 1px solid rgba(17, 24, 39, 0.08);
-    border-radius: 8px;
-    background: #ffffff;
-    box-shadow: 0 22px 60px rgba(15, 23, 42, 0.16);
-  }
 
-  .app-navbar .navbar-nav {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    align-items: stretch;
-    gap: 10px !important;
-    width: 100%;
-  }
-
-  .app-navbar .nav-item {
-    min-width: 0;
-  }
 
   .app-navbar .nav-link,
   .app-navbar .nav-link-icon {
@@ -2190,17 +2176,17 @@ footer {
   .app-navbar .container {
     padding-left: 14px;
     padding-right: 14px;
+    min-height: 70px;
+  }
+
+  .app-navbar .navbar-toggler {
+    width: 50px;
+    height: 50px;
   }
 
   .app-navbar .navbar-brand [data-config="name"],
   .app-navbar .navbar-brand [data-config="shortName"] {
     max-width: calc(100vw - 126px);
-  }
-
-  .app-navbar .navbar-collapse {
-    margin-top: 10px;
-    max-height: calc(100vh - 86px);
-    overflow-y: auto;
   }
 
   .app-navbar .navbar-nav {
@@ -2365,7 +2351,7 @@ footer {
     border: 0;
     border-right: 1px solid rgba(17, 24, 39, 0.1);
     border-radius: 0;
-    background: #ffffff;
+    background: var(--mbx-card, #ffffff);
     box-shadow: 28px 0 70px rgba(15, 23, 42, 0.2);
     transform: translateX(-105%);
     transition: transform 0.28s ease;
@@ -3429,14 +3415,13 @@ footer {
 }
 
 @media (max-width: 767.98px) {
-  .excellence-layout {
-    gap: 24px;
+  .excellence-section {
+    padding-top: 80px;
+    padding-bottom: 36px;
   }
 
-  .excellence-copy {
-    order: 2;
-    text-align: left;
-    padding: 0 4px;
+  .excellence-layout {
+    gap: 20px;
   }
 
   .excellence-media {
@@ -3454,11 +3439,11 @@ footer {
 
   .hero-photo {
     height: auto;
-    aspect-ratio: 4 / 5;
+    aspect-ratio: 3 / 4;
   }
 
   .hero-photo-wrap::before {
-    inset: 20px 16px -12px -12px;
+    inset: 16px 14px -10px -10px;
   }
 
   .section-kicker {
@@ -3466,21 +3451,22 @@ footer {
   }
 
   .hero-title {
-    font-size: clamp(2rem, 9vw, 2.8rem);
+    font-size: clamp(1.9rem, 8vw, 2.6rem);
     line-height: 1.04;
     letter-spacing: -0.02em;
   }
 
   .hero-text {
-    font-size: 0.95rem;
+    font-size: 0.92rem;
     line-height: 1.7;
+    margin-bottom: 14px;
   }
 
   .excellence-points {
     flex-wrap: nowrap;
     overflow-x: auto;
     gap: 8px;
-    margin-bottom: 22px;
+    margin-bottom: 18px;
     padding-bottom: 6px;
     -webkit-overflow-scrolling: touch;
     scrollbar-width: none;
@@ -3493,9 +3479,9 @@ footer {
   .excellence-points span {
     flex: 0 0 auto;
     white-space: nowrap;
-    min-height: 36px;
-    padding: 8px 12px;
-    font-size: 0.82rem;
+    min-height: 34px;
+    padding: 7px 11px;
+    font-size: 0.8rem;
   }
 
   .hero-actions {
@@ -3514,20 +3500,20 @@ footer {
 
   .hero-badge {
     position: absolute;
-    left: 12px;
+    left: 10px;
     right: auto;
     bottom: auto;
-    top: 12px;
-    padding: 10px 14px;
-    font-size: 0.78rem;
-    gap: 8px;
+    top: 10px;
+    padding: 8px 12px;
+    font-size: 0.74rem;
+    gap: 6px;
     border-radius: 999px;
     background: rgba(255, 255, 255, 0.96);
     box-shadow: 0 8px 24px rgba(15, 23, 42, 0.12);
   }
 
   .hero-badge i {
-    font-size: 1.1rem;
+    font-size: 1rem;
   }
 
   .excellence-cards {
@@ -3540,7 +3526,7 @@ footer {
 
   .excellence-cards article {
     min-height: 0;
-    padding: 14px 12px;
+    padding: 13px 11px;
   }
 
   .excellence-cards article:last-child {
@@ -3550,12 +3536,12 @@ footer {
   }
 
   .excellence-cards strong {
-    font-size: 1.15rem;
-    margin-bottom: 4px;
+    font-size: 1.12rem;
+    margin-bottom: 3px;
   }
 
   .excellence-cards span {
-    font-size: 0.78rem;
+    font-size: 0.76rem;
   }
 }
 
@@ -3588,63 +3574,63 @@ footer {
 
 @media (max-width: 575.98px) {
   .excellence-section {
-    padding-top: 92px;
-    padding-bottom: 44px;
+    padding-top: 74px;
+    padding-bottom: 32px;
   }
 
   .excellence-layout {
-    gap: 18px;
+    gap: 16px;
   }
 
-  .excellence-media .hero-photo-wrap {
-    width: 100%;
+  .hero-photo {
+    aspect-ratio: 4 / 5;
   }
 
   .hero-photo-wrap::before {
-    inset: 14px 12px -8px -8px;
+    inset: 12px 10px -6px -6px;
   }
 
   .hero-badge {
     left: 8px;
     top: 8px;
-    padding: 7px 11px;
-    font-size: 0.7rem;
+    padding: 6px 10px;
+    font-size: 0.68rem;
     gap: 5px;
   }
 
   .hero-badge i {
-    font-size: 0.9rem;
+    font-size: 0.85rem;
   }
 
   .hero-title {
-    font-size: clamp(1.7rem, 7.5vw, 2.2rem);
+    font-size: clamp(1.55rem, 7vw, 2rem);
     line-height: 1.06;
   }
 
   .hero-text {
-    font-size: 0.88rem;
-    line-height: 1.65;
-    margin-bottom: 14px;
+    font-size: 0.84rem;
+    line-height: 1.6;
+    margin-bottom: 12px;
   }
 
   .excellence-points {
-    margin-bottom: 16px;
+    margin-bottom: 14px;
   }
 
   .excellence-points span {
-    font-size: 0.75rem;
+    font-size: 0.72rem;
     padding: 6px 9px;
-    min-height: 32px;
+    min-height: 30px;
   }
 
   .excellence-points i {
-    font-size: 0.8rem;
+    font-size: 0.78rem;
   }
 
   .hero-actions .auth-btn {
     min-height: 44px;
-    font-size: 0.9rem;
-    padding: 10px 18px;
+    font-size: 0.88rem;
+    padding: 10px 16px;
   }
 
   .excellence-cards {
@@ -5025,12 +5011,14 @@ body[data-theme="dark"] .app-navbar .nav-link-icon i {
 }
 
 body[data-theme="dark"] .app-navbar .navbar-toggler {
-  border-color: var(--app-line) !important;
-  color: var(--mbx-text) !important;
+  background: var(--mbx-primary) !important;
+  border-color: transparent !important;
+  color: #ffffff !important;
+  box-shadow: 0 6px 18px rgba(0, 123, 255, 0.28) !important;
 }
 
 body[data-theme="dark"] .app-navbar .navbar-toggler-icon {
-  filter: invert(1);
+  filter: brightness(0) invert(1);
 }
 
 body[data-theme="dark"] .theme-toggle-mobile {
@@ -5114,6 +5102,8 @@ body[data-theme="dark"] .refectory-section {
 
 body[data-theme="dark"] .program-card,
 body[data-theme="dark"] .info-card,
+body[data-theme="dark"] .strength-card,
+body[data-theme="dark"] .strengths-intro,
 body[data-theme="dark"] .support-card,
 body[data-theme="dark"] .learning-card,
 body[data-theme="dark"] .lc-card,
