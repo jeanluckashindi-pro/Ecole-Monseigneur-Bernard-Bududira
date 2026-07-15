@@ -1,4 +1,5 @@
 {
+  "version": 2,
   "cleanUrls": true,
   "trailingSlash": false,
   "rewrites": [
@@ -13,6 +14,10 @@
     {
       "source": "/admin",
       "destination": "/pages/admin/index.html"
+    },
+    {
+      "source": "/(.*)",
+      "destination": "/index.html"
     }
   ]
 }
