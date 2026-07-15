@@ -123,35 +123,31 @@ document.addEventListener("DOMContentLoaded", () => {
   const renderPrograms = (lang) => {
     const programs = document.querySelector('[data-render="programs"]');
     if (!programs) return;
-    const labels = translations[lang].nav;
     const programImages = [
       assetPath("images/Section Maternelle.jpeg"),
       assetPath("images/eleves rensemblement 2.jpeg"),
       assetPath("images/Fille_avec_des_cahiers.jpg")
     ];
     programs.innerHTML = `
-      <div class="swiper program-swiper">
-        <div class="swiper-wrapper">
-          ${translations[lang].programs.items.map((item, index) => `
-            <div class="swiper-slide program-slide">
-              <article class="program-card" data-aos="fade-up" data-aos-delay="${index * 60}">
-                <img class="program-card-image" src="${programImages[index]}" alt="${item.title}" loading="lazy">
-                <div class="program-card-top">
-                  <span class="program-icon"><i class="bi ${item.icon}"></i></span>
-                  <span class="program-level">${item.level}</span>
-                </div>
-                <h3>${item.title}</h3>
-                <p>${item.text}</p>
-                <ul class="program-detail-list">
-                  ${item.details.map((detail) => `<li><i class="bi bi-check2"></i><span>${detail}</span></li>`).join("")}
-                </ul>              </article>
+      ${translations[lang].programs.items.map((item, index) => `
+        <article class="program-card" data-aos="fade-up" data-aos-delay="${index * 80}">
+          <div class="program-card-visual">
+            <img class="program-card-image" src="${programImages[index]}" alt="${item.title}" loading="lazy">
+            <span class="program-level">${item.level}</span>
+          </div>
+          <div class="program-card-body">
+            <div class="program-card-head">
+              <span class="program-icon"><i class="bi ${item.icon}"></i></span>
             </div>
-          `).join("")}
-        </div>
-        <div class="swiper-pagination program-pagination"></div>
-      </div>
+            <h3>${item.title}</h3>
+            <p>${item.text}</p>
+            <ul class="program-detail-list">
+              ${item.details.map((detail) => `<li><i class="bi bi-check2-circle"></i><span>${detail}</span></li>`).join("")}
+            </ul>
+          </div>
+        </article>
+      `).join("")}
     `;
-    initProgramSwiper();
   };
 
   const renderGallery = () => {

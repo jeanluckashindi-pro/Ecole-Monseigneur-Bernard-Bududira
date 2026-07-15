@@ -20,6 +20,9 @@
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/intl-tel-input/build/css/intlTelInput.css" rel="stylesheet">
     <link href="../public/assets/css/app.css" rel="stylesheet">
+    <script>
+      (function(){var t=localStorage.getItem("schoolTheme")||(window.matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light");document.documentElement.style.colorScheme=t;document.body?document.body.dataset.theme=t:document.addEventListener("DOMContentLoaded",function(){document.body.dataset.theme=t;});})();
+    </script>
   </head>
   <body>
     <a class="skip-link" href="#main-content" data-i18n="a11y.skipToContent">Aller au contenu principal</a>
@@ -38,6 +41,10 @@
 
         <div class="collapse navbar-collapse" id="mainNavbar">
           <ul class="navbar-nav ms-auto align-items-lg-center gap-lg-2" data-render="nav"></ul>
+          <button class="theme-toggle-btn theme-toggle-desktop ms-lg-3" type="button" data-theme-toggle aria-label="Changer le theme">
+            <i class="bi bi-moon-stars" data-theme-icon></i>
+            <span data-theme-label>Dark</span>
+          </button>
         </div>
       </div>
     </nav>

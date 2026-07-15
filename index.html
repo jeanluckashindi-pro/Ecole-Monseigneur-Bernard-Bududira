@@ -20,6 +20,9 @@
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" rel="stylesheet">
     <link href="public/assets/css/app.css" rel="stylesheet">
+    <script>
+      (function(){var t=localStorage.getItem("schoolTheme")||(window.matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light");document.documentElement.style.colorScheme=t;document.body?document.body.dataset.theme=t:document.addEventListener("DOMContentLoaded",function(){document.body.dataset.theme=t;});})();
+    </script>
   </head>
   <body>
     <a class="skip-link" href="#main-content" data-i18n="a11y.skipToContent">Aller au contenu principal</a>
@@ -38,6 +41,10 @@
 
         <div class="collapse navbar-collapse" id="mainNavbar">
           <ul class="navbar-nav ms-auto align-items-lg-center gap-lg-2" data-render="nav"></ul>
+          <button class="theme-toggle-btn theme-toggle-desktop ms-lg-3" type="button" data-theme-toggle aria-label="Changer le theme">
+            <i class="bi bi-moon-stars" data-theme-icon></i>
+            <span data-theme-label>Dark</span>
+          </button>
         </div>
       </div>
     </nav>
@@ -180,17 +187,11 @@
           <span class="blob blob--pink blob--sm"></span>
         </div>
         <div class="container">
-          <div class="d-flex flex-column flex-lg-row justify-content-between align-items-lg-end gap-3 mb-4" data-aos="fade-up">
-            <div class="section-head mb-0">
-              <span class="section-kicker" data-i18n="programs.eyebrow">Sections</span>
-              <h2 class="section-title mt-2 mb-0" data-i18n="programs.title">Les trois sections de l'Ecole Monseigneur Bernard Bududira.</h2>
-            </div>
-            <div class="program-carousel-controls">
-              <button class="slider-btn program-carousel-btn" type="button" data-program-prev aria-label="Programme precedent"><i class="bi bi-arrow-left"></i></button>
-              <button class="slider-btn program-carousel-btn" type="button" data-program-next aria-label="Programme suivant"><i class="bi bi-arrow-right"></i></button>
-            </div>
+          <div class="programs-header" data-aos="fade-up">
+            <span class="section-kicker" data-i18n="programs.eyebrow">Sections</span>
+            <h2 class="section-title mt-2" data-i18n="programs.title">Les trois sections de l'Ecole Monseigneur Bernard Bududira.</h2>
           </div>
-          <div class="program-carousel" data-render="programs"></div>
+          <div class="programs-grid" data-render="programs"></div>
         </div>
       </section>
 
@@ -341,59 +342,57 @@
             <p class="section-text learning-header-text">Des disciplines complementaires pour former des eleves complets, capables de comprendre le monde et d'y trouver leur place.</p>
           </div>
 
-          <div class="learning-grid-pro">
-            <article class="lc-featured" data-aos="fade-up">
-              <div class="lc-featured-inner">
-                <div class="lc-icon lc-icon--blue">
-                  <i class="bi bi-calculator-fill"></i>
-                </div>
-                <div class="lc-featured-body">
-                  <span class="lc-tag">Matiere phare</span>
-                  <h3 data-i18n="learning.cards.0.title">Sciences et mathematiques</h3>
-                  <p data-i18n="learning.cards.0.text">Raisonnement, experimentation, resolution de problemes et preparation aux examens scientifiques.</p>
-                  <ul class="lc-check-list">
-                    <li><i class="bi bi-check2-circle"></i>Algebre et geometrie</li>
-                    <li><i class="bi bi-check2-circle"></i>Physique et chimie</li>
-                    <li><i class="bi bi-check2-circle"></i>Biologie appliquee</li>
-                  </ul>
-                </div>
+          <article class="lc-featured" data-aos="fade-up">
+            <div class="lc-featured-inner">
+              <div class="lc-icon lc-icon--blue">
+                <i class="bi bi-calculator-fill"></i>
+              </div>
+              <div class="lc-featured-body">
+                <span class="lc-tag">Matiere phare</span>
+                <h3 data-i18n="learning.cards.0.title">Sciences et mathematiques</h3>
+                <p data-i18n="learning.cards.0.text">Raisonnement, experimentation, resolution de problemes et preparation aux examens scientifiques.</p>
+                <ul class="lc-check-list">
+                  <li><i class="bi bi-check2-circle"></i>Algebre et geometrie</li>
+                  <li><i class="bi bi-check2-circle"></i>Physique et chimie</li>
+                  <li><i class="bi bi-check2-circle"></i>Biologie appliquee</li>
+                </ul>
+              </div>
+            </div>
+          </article>
+
+          <div class="lc-secondary-grid">
+            <article class="lc-card" data-aos="fade-up" data-aos-delay="80">
+              <div class="lc-icon lc-icon--green">
+                <i class="bi bi-translate"></i>
+              </div>
+              <h3 data-i18n="learning.cards.1.title">Langues</h3>
+              <p data-i18n="learning.cards.1.text">Expression orale, lecture, redaction et ouverture aux cultures.</p>
+              <div class="lc-pills">
+                <span>Francais</span><span>Anglais</span><span>Expression</span>
               </div>
             </article>
 
-            <div class="lc-secondary-grid">
-              <article class="lc-card" data-aos="fade-up" data-aos-delay="80">
-                <div class="lc-icon lc-icon--green">
-                  <i class="bi bi-translate"></i>
-                </div>
-                <h3 data-i18n="learning.cards.1.title">Langues</h3>
-                <p data-i18n="learning.cards.1.text">Expression orale, lecture, redaction et ouverture aux cultures.</p>
-                <div class="lc-pills">
-                  <span>Francais</span><span>Anglais</span><span>Expression</span>
-                </div>
-              </article>
+            <article class="lc-card" data-aos="fade-up" data-aos-delay="160">
+              <div class="lc-icon lc-icon--gold">
+                <i class="bi bi-globe2"></i>
+              </div>
+              <h3 data-i18n="learning.cards.2.title">Sciences humaines</h3>
+              <p data-i18n="learning.cards.2.text">Histoire, geographie, citoyennete et comprehension du monde.</p>
+              <div class="lc-pills">
+                <span>Histoire</span><span>Geo</span><span>Civisme</span>
+              </div>
+            </article>
 
-              <article class="lc-card" data-aos="fade-up" data-aos-delay="160">
-                <div class="lc-icon lc-icon--gold">
-                  <i class="bi bi-globe2"></i>
-                </div>
-                <h3 data-i18n="learning.cards.2.title">Sciences humaines</h3>
-                <p data-i18n="learning.cards.2.text">Histoire, geographie, citoyennete et comprehension du monde.</p>
-                <div class="lc-pills">
-                  <span>Histoire</span><span>Geo</span><span>Civisme</span>
-                </div>
-              </article>
-
-              <article class="lc-card lc-card--accent" data-aos="fade-up" data-aos-delay="240">
-                <div class="lc-icon lc-icon--dark">
-                  <i class="bi bi-cpu-fill"></i>
-                </div>
-                <h3 data-i18n="learning.cards.3.title">Numerique</h3>
-                <p data-i18n="learning.cards.3.text">Informatique, recherche, projets et usage responsable des outils digitaux.</p>
-                <div class="lc-pills">
-                  <span>Informatique</span><span>Projets</span>
-                </div>
-              </article>
-            </div>
+            <article class="lc-card lc-card--accent" data-aos="fade-up" data-aos-delay="240">
+              <div class="lc-icon lc-icon--dark">
+                <i class="bi bi-cpu-fill"></i>
+              </div>
+              <h3 data-i18n="learning.cards.3.title">Numerique</h3>
+              <p data-i18n="learning.cards.3.text">Informatique, recherche, projets et usage responsable des outils digitaux.</p>
+              <div class="lc-pills">
+                <span>Informatique</span><span>Projets</span>
+              </div>
+            </article>
           </div>
         </div>
       </section>
