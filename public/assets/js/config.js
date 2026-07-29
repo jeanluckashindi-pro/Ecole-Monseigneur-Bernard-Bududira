@@ -66,7 +66,7 @@ const FALLBACK_CONFIG = {
 
 (async function initConfig() {
   try {
-    const res = await fetch(`${API_BASE}/config/public`);
+    const res = await fetch(`${API_BASE}/config/public/`);
     if (res.ok) {
       const apiData = await res.json();
       const merged = { ...FALLBACK_CONFIG, ...apiData };

@@ -343,7 +343,7 @@ document.addEventListener("DOMContentLoaded", () => {
       const submitBtn = form.querySelector("[type=submit]");
       submitBtn.disabled = true;
       try {
-        await postJSON("/api/messages", {
+        await postJSON("/api/messages/", {
           name: form.name.value,
           email: form.email.value,
           phone: form.phone?.value || "",
@@ -438,7 +438,7 @@ document.addEventListener("DOMContentLoaded", () => {
       submitBtn.textContent = "Envoi en cours...";
 
       try {
-        await postJSON("/api/inscriptions", data);
+        await postJSON("/api/inscriptions/", data);
         form.reset();
         resetFormDropdowns(form);
         updateClassOptions(form, "");
