@@ -5,8 +5,9 @@ const SCHOOL_ASSET_BASE = (() => {
 
 const schoolAsset = (path) => `${SCHOOL_ASSET_BASE}/${path}`;
 
-window.SCHOOL_CONFIG = {
-  assetBase: SCHOOL_ASSET_BASE,
+const API_BASE = "/api";
+
+const FALLBACK_CONFIG = {
   name: "Ecole Monseigneur Bernard Bududira",
   shortName: "Œuvre de la Congrégation",
   schoolName: "Ecole Monseigneur Bernard Bududira",
@@ -62,3 +63,37 @@ window.SCHOOL_CONFIG = {
     { label: "Contact", target: "#contact" }
   ]
 };
+
+(async function initConfig() {
+  try {
+    const res = await fetch(`${API_BASE}/config/public/`);
+    if (res.ok) {
+      const apiData = await res.json();
+      const merged = { ...FALLBACK_CONFIG, ...apiData };
+      if (!merged.gallery || !merged.gallery.length) {
+        merged.gallery = FALLBACK_CONFIG.gallery;
+      }
+      if (!merged.programs || !merged.programs.length) {
+        merged.programs = FALLBACK_CONFIG.programs;
+      }
+      if (!merged.nav || !merged.nav.length) {
+        merged.nav = FALLBACK_CONFIG.nav;
+      }
+      if (!merged.values || !merged.values.length) {
+        merged.values = FALLBACK_CONFIG.values;
+      }
+      if (!merged.heroImage) merged.heroImage = FALLBACK_CONFIG.heroImage;
+      if (!merged.aboutImage) merged.aboutImage = FALLBACK_CONFIG.aboutImage;
+      window.SCHOOL_CONFIG = merged;
+    } else {
+      window.SCHOOL_CONFIG = FALLBACK_CONFIG;
+    }
+  } catch {
+    window.SCHOOL_CONFIG = FALLBACK_CONFIG;
+  }
+
+  document.dispatchEvent(new Event("school:config-ready"));
+})();
+
+window.SCHOOL_CONFIG = FALLBACK_CONFIG;
+window.API_BASE = API_BASE;
