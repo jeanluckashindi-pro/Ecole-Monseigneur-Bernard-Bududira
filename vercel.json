@@ -1,7 +1,6 @@
 {
   "version": 2,
-  "cleanUrls": false,
-  "trailingSlash": false,
+  "trailingSlash": true,
   "rewrites": [
     {
       "source": "/api/(.*)",
@@ -16,7 +15,15 @@
       "destination": "/pages/inscription.html"
     },
     {
+      "source": "/inscription/",
+      "destination": "/pages/inscription.html"
+    },
+    {
       "source": "/admin",
+      "destination": "/pages/admin/index.html"
+    },
+    {
+      "source": "/admin/",
       "destination": "/pages/admin/index.html"
     },
     {
